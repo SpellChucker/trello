@@ -1,14 +1,37 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Trello
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <h1>Boards are used to categorize your to-do lists</h1>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-2 *ngFor="let board of boards" (click)="loadBoard(board)">
+        <ion-card class="clickable">
+          <ion-card-header>
+            {{ board.title }}
+          </ion-card-header>
+          <ion-card-content>
+            {{ board.description }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-2>
+        <ion-card (click)="addBoard()" class="clickable">
+          <ion-card-header>
+            <ion-icon name="add-circle"></ion-icon> Add a Board
+          </ion-card-header>
+          <ion-card-content>
+            Click here to add a board.
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
