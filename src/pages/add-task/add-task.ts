@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Task } from '../../app/Task';
 
 /**
  * Generated class for the AddTaskPage page.
@@ -14,12 +15,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'add-task.html',
 })
 export class AddTaskPage {
+  task: Task = new Task('', '', '');
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public view: ViewController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddTaskPage');
+    this.task.status = this.navParams.get('status');
   }
 
+  saveTask() {
+    this.view.dismiss(this.task);
+  }
+
+  close() {
+    this.view.dismiss();
+  }
 }

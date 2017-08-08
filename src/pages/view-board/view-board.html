@@ -19,12 +19,13 @@
         <h2>To-Do</h2>
         <ion-card class="clickable" *ngFor="let task of todoTasks()">
           <ion-card-header>
-            <ion-icon name="add-circle"></ion-icon> Add a Task
+            {{ task.title }}
           </ion-card-header>
           <ion-card-content>
+            {{ task.description }}
           </ion-card-content>
         </ion-card>
-        <ion-card class="clickable">
+        <ion-card class="clickable" (click)="addTask('todo')">
           <ion-card-header>
             <ion-icon name="add-circle"></ion-icon> Add a Task
           </ion-card-header>
@@ -36,12 +37,13 @@
         <h2>In Progress</h2>
         <ion-card class="clickable" *ngFor="let task of inProgressTasks()">
           <ion-card-header>
-            <ion-icon name="add-circle"></ion-icon> Add a Task
+            {{ task.title }}
           </ion-card-header>
           <ion-card-content>
+            {{ task.description }}
           </ion-card-content>
         </ion-card>
-        <ion-card class="clickable">
+        <ion-card class="clickable" (click)="addTask('inprogress')">
           <ion-card-header>
             <ion-icon name="add-circle"></ion-icon> Add a Task
           </ion-card-header>
@@ -53,12 +55,13 @@
         <h2>Complete</h2>
         <ion-card class="clickable" *ngFor="let task of completeTasks()">
           <ion-card-header>
-            <ion-icon name="add-circle"></ion-icon> Add a Task
+            {{ task.title }}
           </ion-card-header>
           <ion-card-content>
+            {{ task.description }}
           </ion-card-content>
         </ion-card>
-        <ion-card class="clickable">
+        <ion-card class="clickable" (click)="addTask('complete')">
           <ion-card-header>
             <ion-icon name="add-circle"></ion-icon> Add a Task
           </ion-card-header>

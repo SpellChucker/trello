@@ -7,12 +7,37 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>add-task</ion-title>
+    <ion-title>Add New Task</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Title</ion-label>
+      <ion-input type="text" value="" [(ngModel)]="task.title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Description</ion-label>
+      <ion-textarea rows="3" [(ngModel)]="task.description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Status</ion-label>
+      <ion-select [(ngModel)]="task.status">
+        <ion-option [selected]="task.status === 'todo'" value="todo">To-Do</ion-option>
+        <ion-option [selected]="task.status === 'inprogress'" value="inprogress">In Progress</ion-option>
+        <ion-option [selected]="task.status === 'complete'" value="complete">Complete</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <div text-center>
+      <button ion-button (click)="saveTask()">Save Task</button>
+    </div>
+  </ion-list>
 
 </ion-content>

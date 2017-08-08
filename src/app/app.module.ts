@@ -8,13 +8,15 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AddBoardPage } from '../pages/add-board/add-board';
 import { ViewBoardPage } from '../pages/view-board/view-board';
+import { AddTaskPage } from '../pages/add-task/add-task';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     AddBoardPage,
-    ViewBoardPage
+    ViewBoardPage,
+    AddTaskPage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ import { ViewBoardPage } from '../pages/view-board/view-board';
     MyApp,
     HomePage,
     AddBoardPage,
-    ViewBoardPage
+    ViewBoardPage,
+    AddTaskPage
   ],
   providers: [
     StatusBar,
