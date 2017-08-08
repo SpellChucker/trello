@@ -18,7 +18,7 @@ import { Task } from '../../app/Task';
 export class ViewBoardPage {
   title: string;
   description: string;
-  tasks: Task[];
+  tasks: Task[] = new Array();
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -26,15 +26,15 @@ export class ViewBoardPage {
   ionViewDidLoad() {
     this.title = this.navParams.get('board').title;
     this.description = this.navParams.get('board').description;
-    this.tasks = this.navParams.get('board').tasks;
+    this.tasks = this.navParams.get('board').tasks.splice(0);
   }
 
   todoTasks() {
-    return this.tasks.filter(task => task.status === 'todo') || [];
+    return this.tasks.filter(task => task.status === 'todo');
   }
 
   inProgressTasks() {
-    return this.tasks.filter(task => task.status === 'inprogress') || [];
+    return this.tasks.filter(task => task.status === 'inprogress');
   }
 
   completeTasks() {

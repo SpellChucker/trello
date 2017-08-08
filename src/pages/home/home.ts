@@ -10,7 +10,7 @@ import { Board } from '../../app/Board';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  boards: Board[] = [{title: 'Test Board', description: 'Just a test!'}];
+  boards: Board[] = new Array();
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
 

@@ -10,7 +10,7 @@
   <h1>Boards are used to categorize your to-do lists</h1>
   <ion-grid>
     <ion-row>
-      <ion-col col-2 *ngFor="let board of boards" (click)="loadBoard(board)">
+      <ion-col col-12 col-sm *ngFor="let board of boards" (click)="loadBoard(board)">
         <ion-card class="clickable">
           <ion-card-header>
             {{ board.title }}
@@ -22,7 +22,7 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col col-2>
+      <ion-col col-12 col-sm>
         <ion-card (click)="addBoard()" class="clickable">
           <ion-card-header>
             <ion-icon name="add-circle"></ion-icon> Add a Board
