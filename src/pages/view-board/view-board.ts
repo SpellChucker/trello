@@ -19,13 +19,15 @@ import { DragulaService } from '../../../node_modules/ng2-dragula/ng2-dragula';
   templateUrl: 'view-board.html'
 })
 export class ViewBoardPage {
+  boardId: number;
   board: Board = new Board('', '');
   dropSubscription: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
     public boardProvider: BoardProvider, public dragulaService: DragulaService, public toastCtrl: ToastController) {
     // Use our board provider to get the specified board.
-    this.board = this.boardProvider.boards[this.navParams.get('id')];
+    this.boardId = this.navParams.get('id');
+    this.board = this.boardProvider.boards[this.boardId];
 
     // Need to remove the bag if the service has already registered it.
     const bag: any = this.dragulaService.find('task-bag');

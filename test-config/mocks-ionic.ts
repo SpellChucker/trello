@@ -66,7 +66,7 @@ export class PlatformMock {
 }
 
 export class BoardProviderMock {
-  boards: Board[] = new Array();
+  boards: Board[] = [new Board('test', 'test')];
 
   addBoard(board: Board) {
     this.boards.push(board);
