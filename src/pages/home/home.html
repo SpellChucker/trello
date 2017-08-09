@@ -10,14 +10,10 @@
   <h1>Boards are used to categorize your to-do lists</h1>
   <ion-grid>
     <ion-row>
-      <ion-col col-12 col-sm *ngFor="let board of boards; let i = index" (click)="loadBoard(i)">
+      <ion-col col-12 col-sm *ngFor="let board of boardService.boards; let i = index" (click)="loadBoard(i)">
         <ion-card class="clickable">
-          <ion-card-header>
-            {{ board.title }}
-          </ion-card-header>
-          <ion-card-content>
-            {{ board.description }}
-          </ion-card-content>
+          <ion-card-header>{{ board.title }}</ion-card-header>
+          <ion-card-content>{{ board.description }}</ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>

@@ -19,14 +19,15 @@ import { DragulaService } from '../../../node_modules/ng2-dragula/ng2-dragula';
   templateUrl: 'view-board.html'
 })
 export class ViewBoardPage {
+  boardId: number;
   board: Board = new Board('', '');
+  dropSubscription: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
     public boardProvider: BoardProvider, public dragulaService: DragulaService, public toastCtrl: ToastController) {
     // Use our board provider to get the specified board.
-    this.boardProvider.getBoard(this.navParams.get('id')).then((board) => {
-      this.board = board;
-    });
+    this.boardId = this.navParams.get('id');
+    this.board = this.boardProvider.boards[this.boardId];
 
     // Need to remove the bag if the service has already registered it.
     const bag: any = this.dragulaService.find('task-bag');
@@ -38,13 +39,12 @@ export class ViewBoardPage {
       revertOnSpill: true
     });
 
-    this.dragulaService.drop.subscribe((value) => {
+    this.dropSubscription = this.dragulaService.drop.subscribe((value) => {
       let [e, el, container] = value;
 
       // Since we dropped the task, set it's status.
-      let task = this.board.tasks[el.dataset.id];
-      task.status = container.dataset.status;
-      this.boardProvider.saveBoard(this.board, this.navParams.get('id'));
+      this.board.tasks[el.dataset.id].status = container.dataset.status;
+
       let toast = this.toastCtrl.create({
         message: 'Task status updated',
         duration: 2000,
@@ -53,6 +53,10 @@ export class ViewBoardPage {
 
       toast.present();
     });
+  }
+
+  ngOnDestroy() {
+    this.dropSubscription.unsubscribe();
   }
 
   addTask(status: string) {
@@ -70,8 +74,7 @@ export class ViewBoardPage {
     // Save the task to our local variable and then save the specified board.
     // We're saving an id attribute so we can reference it when changing status.
     task.id = this.board.tasks.length;
-    this.board.tasks.push(task);
-    this.boardProvider.saveBoard(this.board, this.navParams.get('id'));
+    this.board.addTask(task);
   }
 
   todoTasks() {

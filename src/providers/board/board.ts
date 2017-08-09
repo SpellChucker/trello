@@ -1,4 +1,3 @@
-import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 
 import { Board } from '../../models/Board';
@@ -11,13 +10,10 @@ import { Board } from '../../models/Board';
 */
 @Injectable()
 export class BoardProvider {
+  boards: Board[] = new Array();
 
-  constructor(public storage: Storage) {
-
-  }
-
-  getBoards() {
-    return this.storage.get('boards');
+  constructor() {
+    this.boards = new Array();
   }
 
   returnBoard(board: Board) {
@@ -25,27 +21,19 @@ export class BoardProvider {
   }
 
   getBoard(id: number) {
-    return this.getBoards().then((boards) => {
-      return boards[id];
-    });
+    return this.boards[id];
   }
 
   getTask(boardId:number, taskId: number) {
-    return this.getBoards().then((boards) => {
-      return boards[boardId];
-    }).then((board) => {
-      return board.tasks[taskId];
-    });
+    return this.boards[boardId].tasks[taskId];
   }
 
   saveBoards(boards: Board[]) {
-    this.storage.set('boards', boards);
+    this.boards = boards;
   }
 
-  saveBoard(board: Board, id: number) {
-    this.getBoards().then((boards) => {
-      boards[id] = board;
-      this.saveBoards(boards);
-    });
+  addBoard(board: Board) {
+    this.boards.push(board);
+    this.saveBoards(this.boards);
   }
 }

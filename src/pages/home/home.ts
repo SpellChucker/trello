@@ -10,16 +10,10 @@ import { Board } from '../../models/Board';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  boards: Board[];
+  boards: Board[] = new Array();
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public boardService: BoardProvider) {
-    this.boardService.getBoards().then((boards) => {
-      if (boards) {
-        this.boards = boards;
-      } else {
-        this.boards = new Array();
-      }
-    });
+    this.boards = this.boardService.boards;
   }
 
   addBoard() {
