@@ -2,18 +2,24 @@ import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { AddBoardPage } from '../add-board/add-board';
 import { ViewBoardPage } from '../view-board/view-board';
-// TODO: maybe move this.
-import { Board } from '../../app/Board';
+import { BoardProvider } from '../../providers/board/board';
+import { Board } from '../../models/Board';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  boards: Board[] = [{title: 'Test Board', description: 'Just a test!'}];
+  boards: Board[];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
-
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public boardService: BoardProvider) {
+    this.boardService.getBoards().then((boards) => {
+      if (boards) {
+        this.boards = boards;
+      } else {
+        this.boards = new Array();
+      }
+    });
   }
 
   addBoard() {
@@ -26,13 +32,14 @@ export class HomePage {
     modal.present();
   }
 
-  loadBoard(board: Board) {
+  loadBoard(id: number) {
     this.navCtrl.push(ViewBoardPage, {
-      board: board
+      id: id 
     });
   }
 
   saveBoard(board: Board) {
     this.boards.push(board);
+    this.boardService.saveBoards(this.boards);
   }
 }

@@ -7,25 +7,27 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ title }}</ion-title>
+    <ion-title>{{ board.title }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col col-4>
+      <ion-col col-12 col-sm>
         <h2>To-Do</h2>
-        <ion-card class="clickable">
-          <ion-card-header>
-            <ion-icon name="add-circle"></ion-icon> Add a Task
-          </ion-card-header>
-          <ion-card-content>
-          </ion-card-content>
-        </ion-card>
-        <ion-card class="clickable">
+        <ion-list [dragula]="'task-bag'" class="task-list" data-status="todo">
+          <ion-card [attr.data-id]="task.id" class="clickable" *ngFor="let task of todoTasks()">
+            <ion-card-header>
+              {{ task.title }}
+            </ion-card-header>
+            <ion-card-content>
+              {{ task.description }}
+            </ion-card-content>
+          </ion-card>
+        </ion-list>
+        <ion-card class="clickable" (click)="addTask('todo')">
           <ion-card-header>
             <ion-icon name="add-circle"></ion-icon> Add a Task
           </ion-card-header>
@@ -33,9 +35,19 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col col-4>
+      <ion-col col-12 col-sm>
         <h2>In Progress</h2>
-        <ion-card class="clickable">
+        <ion-list [dragula]="'task-bag'" class="task-list" data-status="inprogress">
+          <ion-card [attr.data-id]="task.id" class="clickable" *ngFor="let task of inProgressTasks()">
+            <ion-card-header>
+              {{ task.title }}
+            </ion-card-header>
+            <ion-card-content>
+              {{ task.description }}
+            </ion-card-content>
+          </ion-card>
+        </ion-list>
+        <ion-card class="clickable" (click)="addTask('inprogress')">
           <ion-card-header>
             <ion-icon name="add-circle"></ion-icon> Add a Task
           </ion-card-header>
@@ -43,9 +55,19 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col col-4>
+      <ion-col col-12 col-sm>
         <h2>Complete</h2>
-        <ion-card class="clickable">
+        <ion-list [dragula]="'task-bag'" class="task-list" data-status="complete">
+          <ion-card [attr.data-id]="task.id" class="clickable" *ngFor="let task of completeTasks()">
+            <ion-card-header>
+              {{ task.title }}
+            </ion-card-header>
+            <ion-card-content>
+              {{ task.description }}
+            </ion-card-content>
+          </ion-card>
+        </ion-list>
+        <ion-card class="clickable" (click)="addTask('complete')">
           <ion-card-header>
             <ion-icon name="add-circle"></ion-icon> Add a Task
           </ion-card-header>

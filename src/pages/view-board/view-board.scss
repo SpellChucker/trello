@@ -1,3 +1,11 @@
+@import '../../../node_modules/dragula/dist/dragula.min';
 page-view-board {
+  .status-container {
+    background: #ccc;
+    margin: 20px;
+  }
 
+  .task-list {
+    min-height: 50px;
+  }
 }
