@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-// TODO: maybe move this.
-import { Board } from '../../app/Board';
+import { Board } from '../../models/Board';
 
 /**
  * Generated class for the AddBoardPage page.

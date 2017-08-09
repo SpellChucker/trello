@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { Task } from '../../app/Task';
+import { Task } from '../../models/Task';
 
 /**
  * Generated class for the AddTaskPage page.
@@ -15,7 +15,7 @@ import { Task } from '../../app/Task';
   templateUrl: 'add-task.html',
 })
 export class AddTaskPage {
-  task: Task = new Task('', '', '');
+  task: Task = new Task(0, '', '', '');
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public view: ViewController) {
   }

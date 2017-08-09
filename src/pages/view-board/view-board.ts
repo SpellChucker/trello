@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { AddTaskPage } from '../add-task/add-task';
-// TODO: maybe move this.
-import { Task } from '../../app/Task';
+import { BoardProvider } from '../../providers/board/board';
+import { Board } from '../../models/Board';
+import { Task } from '../../models/Task';
+// Import Dragula for drag 'n drop.
+import { DragulaService } from '../../../node_modules/ng2-dragula/ng2-dragula';
 
 /**
  * Generated class for the ViewBoardPage page.
@@ -14,23 +17,47 @@ import { Task } from '../../app/Task';
 @IonicPage()
 @Component({
   selector: 'page-view-board',
-  templateUrl: 'view-board.html',
+  templateUrl: 'view-board.html'
 })
 export class ViewBoardPage {
-  title: string;
-  description: string;
-  tasks: Task[] = new Array();
+  board: Board = new Board('', '');
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController,
+    public boardProvider: BoardProvider, public dragulaService: DragulaService, public toastCtrl: ToastController) {
+    // Use our board provider to get the specified board.
+    this.boardProvider.getBoard(this.navParams.get('id')).then((board) => {
+      this.board = board;
+    });
 
-  ionViewDidLoad() {
-    this.title = this.navParams.get('board').title;
-    this.description = this.navParams.get('board').description;
-    this.tasks = this.navParams.get('board').tasks.splice(0);
+    // Need to remove the bag if the service has already registered it.
+    const bag: any = this.dragulaService.find('task-bag');
+    if (bag !== undefined) {
+      this.dragulaService.destroy('task-bag');
+    }
+
+    this.dragulaService.setOptions('task-bag', {
+      revertOnSpill: true
+    });
+
+    this.dragulaService.drop.subscribe((value) => {
+      let [e, el, container] = value;
+
+      // Since we dropped the task, set it's status.
+      let task = this.board.tasks[el.dataset.id];
+      task.status = container.dataset.status;
+      this.boardProvider.saveBoard(this.board, this.navParams.get('id'));
+      let toast = this.toastCtrl.create({
+        message: 'Task status updated',
+        duration: 2000,
+        position: 'top'
+      });
+
+      toast.present();
+    });
   }
 
   addTask(status: string) {
+    // Open up the modal to add a task, and save it on close (if we have a task).
     let modal = this.modalCtrl.create(AddTaskPage, { status: status});
     modal.onDidDismiss((Task) => {
       if (Task) {
@@ -41,18 +68,34 @@ export class ViewBoardPage {
   }
 
   saveTask(task: Task) {
-    this.tasks.push(task);
+    // Save the task to our local variable and then save the specified board.
+    // We're saving an id attribute so we can reference it when changing status.
+    task.id = this.board.tasks.length;
+    this.board.tasks.push(task);
+    this.boardProvider.saveBoard(this.board, this.navParams.get('id'));
   }
 
   todoTasks() {
-    return this.tasks.filter(task => task.status === 'todo');
+    // If we have a board, find the tasks that are in status todo.
+    if (this.board) {
+      return this.board.tasks.filter(task => task.status === 'todo');
+    }
+    return [];
   }
 
   inProgressTasks() {
-    return this.tasks.filter(task => task.status === 'inprogress');
+    // If we have a board, find the tasks that are in status inprogress.
+    if (this.board) {
+      return this.board.tasks.filter(task => task.status === 'inprogress');
+    }
+    return [];
   }
 
   completeTasks() {
-    return this.tasks.filter(task => task.status === 'complete');
+    // If we have a board, find the tasks that are in status completed.
+    if (this.board) {
+      return this.board.tasks.filter(task => task.status === 'complete');
+    }
+    return [];
   }
 }
