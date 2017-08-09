@@ -1,7 +1,4 @@
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { BoardProvider } from '../src/providers/board/board';
-import { Storage } from '@ionic/storage';
+import { Board } from '../src/models/Board';
 
 export class PlatformMock {
   public ready(): Promise<{String}> {
@@ -68,30 +65,18 @@ export class PlatformMock {
   }
 }
 
-export class StatusBarMock extends StatusBar {
-  styleDefault() {
-    return;
+export class BoardProviderMock {
+  boards: Board[] = new Array();
+
+  addBoard(board: Board) {
+    this.boards.push(board);
   }
 }
 
-export class SplashScreenMock extends SplashScreen {
-  hide() {
-    return;
-  }
-}
-
-export class BoardProviderMock extends BoardProvider {
-  getBoards() {
-    return new Promise((resolve, reject) => {
-      resolve([]);
-    });
-  }
-}
-
-export class StorageMock extends Storage {
+export class StorageMock {
   get(key: string) {
     return new Promise((resolve, reject) => {
-      resolve([]);
+      return resolve([]);
     })
   }
 
@@ -100,4 +85,33 @@ export class StorageMock extends Storage {
       resolve([]);
     })
   }
+}
+
+export class NavParamsMock {
+  static returnParams:any = {};
+
+  public get(key): any {
+    if (NavParamsMock.returnParams[key]) {
+      return NavParamsMock.returnParams[key];
+    }
+    return 'default';
+  }
+
+  static setParams(key, value) {
+    NavParamsMock.returnParams[key] = value;
+  }
+}
+
+export class ViewControllerMock {
+  public _setHeader(): any {
+    return {};
+  };
+
+  public _setIONContent(): any {
+    return {};
+  };
+
+  public _setIONContentRef(): any {
+    return {};
+  };
 }

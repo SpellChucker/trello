@@ -1,6 +1,6 @@
 {
-  "name": "ionic-unit-testing-example",
-  "author": "Ionic Framework",
+  "name": "Trello",
+  "author": "Todd Vrba",
   "homepage": "https://ionicframework.com/",
   "private": true,
   "scripts": {
@@ -46,6 +46,7 @@
     "jasmine-spec-reporter": "^4.1.0",
     "karma": "^1.5.0",
     "karma-chrome-launcher": "^2.0.0",
+    "karma-firefox-launcher": "^1.0.1",
     "karma-jasmine": "^1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-sourcemap-loader": "^0.3.7",
@@ -57,5 +58,5 @@
     "typescript": "2.3.3"
   },
   "version": "0.0.1",
-  "description": "An Ionic project"
+  "description": "An Ionic project mocking some functionality of Trello"
 }
