@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { Board } from '../../models/Board';
 
 /**
@@ -9,7 +9,6 @@ import { Board } from '../../models/Board';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-add-board',
   templateUrl: 'add-board.html',

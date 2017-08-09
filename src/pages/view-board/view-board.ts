@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { AddTaskPage } from '../add-task/add-task';
 import { BoardProvider } from '../../providers/board/board';
 import { Board } from '../../models/Board';
@@ -14,7 +14,6 @@ import { DragulaService } from '../../../node_modules/ng2-dragula/ng2-dragula';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-view-board',
   templateUrl: 'view-board.html'
